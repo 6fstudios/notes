@@ -3,14 +3,15 @@ import {render} from 'react-dom';
 
 import {useNotes} from './hooks';
 import {addNote, updateNote, removeNote, selectNote} from './actions';
-import {Box, Button, Icon, Editor, ListItem} from './ui';
+import {Box, Button, Editor, Icon, ListItem, Text} from './ui';
 import {fetchRemoveNote, fetchUpdateNote} from './api';
+import styled from 'styled-components';
 
 const NotePreview = props => {
   return (
-    <Box padding='0 0 4px 0'>
+    <Box padding='0 0 4px 0' width='300px'>
       <ListItem onClick={props.onClick} selected={props.selected}>
-        <span>{props.text}</span>
+        <Text>{props.text}</Text>
         {props.onRemove && (
           <Button onClick={props.onRemove}>
             <Icon name='delete' />
@@ -34,7 +35,7 @@ const App = () => {
 
   return (
     <Box display='flex' height='100vh'>
-      <Box maxWidth='300px' flex={1} margin='24px 0px 0px 24px' overflow='auto'>
+      <Box position='fixed' top='24px' left='24px'>
         <NotePreview text='+ add note' onClick={() => dispatch(addNote())} />
         {notesList.map(note => (
           <NotePreview
@@ -48,22 +49,14 @@ const App = () => {
           />
         ))}
       </Box>
-      <Box flex={2} margin='24px' maxWidth='800px'>
-        <Box
-          padding='36px'
-          height='100%'
-          boxShadow='0px 0px 10px #ccc'
-          background='white'
-          borderRadius='4px'
-        >
-          <Editor
-            value={selectedNote.text}
-            onChange={text => {
-              fetchUpdateNote(selectedNote.id, text);
-              dispatch(updateNote(selectedNote.id, text));
-            }}
-          />
-        </Box>
+      <Box flex={1} position='relative' left='324px' maxWidth='800px'>
+        <Editor
+          defaultValue={selectedNote.text}
+          onChange={text => {
+            fetchUpdateNote(selectedNote.id, text);
+            dispatch(updateNote(selectedNote.id, text));
+          }}
+        />
       </Box>
     </Box>
   );

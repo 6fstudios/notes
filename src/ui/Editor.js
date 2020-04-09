@@ -102,32 +102,32 @@ const handleKeyDown = e => {
 };
 
 export const Editor = ({value, onChange}) => {
-  // const [{selectionStart, selectionEnd}, setSelectionRange] = useState(0);
+  const [{selectionStart, selectionEnd}, setSelectionRange] = useState(0);
   const inputEl = useRef(null);
 
   useEffect(() => {
     inputEl.current.focus();
   }, [value]);
 
-  // useEffect(() => {
-  //   if (selectionStart === selectionEnd) return;
-  //   inputEl.current.selectionStart = selectionStart;
-  //   inputEl.current.selectionEnd = selectionEnd;
-  // }, [value]);
+  useEffect(() => {
+    if (selectionStart === selectionEnd) return;
+    inputEl.current.selectionStart = selectionStart;
+    inputEl.current.selectionEnd = selectionEnd;
+  }, [value]);
 
   return (
     <Textarea
       ref={inputEl}
       value={value}
       onChange={e => onChange(e.target.value)}
-      // onKeyDown={e => {
-      //   const {newValue, selectionStart, selectionEnd} = handleKeyDown(e);
-      //   setSelectionRange({
-      //     selectionStart,
-      //     selectionEnd,
-      //   });
-      //   onChange(newValue);
-      // }}
+      onKeyDown={e => {
+        const {newValue, selectionStart, selectionEnd} = handleKeyDown(e);
+        setSelectionRange({
+          selectionStart,
+          selectionEnd,
+        });
+        onChange(newValue);
+      }}
     />
   );
 };
