@@ -3,7 +3,6 @@ let CACHE = {};
 export const fetchNotes = () => {
   const string = window.localStorage.getItem('the_notes') || '{}';
   CACHE = JSON.parse(string)
-  console.log(CACHE)
   return Promise.resolve(CACHE)
 }
 

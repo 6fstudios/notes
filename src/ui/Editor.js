@@ -38,15 +38,11 @@ function toLines(string) {
 }
 
 function indent(string) {
-  return toLines(string)
-    .map(addTabCharacter)
-    .join('\n');
+  return toLines(string).map(addTabCharacter).join('\n');
 }
 
 function outdent(string) {
-  return toLines(string)
-    .map(removeTabCharacter)
-    .join('\n');
+  return toLines(string).map(removeTabCharacter).join('\n');
 }
 
 function lastIndexOf(string, char) {

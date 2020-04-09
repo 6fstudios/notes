@@ -28,7 +28,7 @@ const App = () => {
   const selectedNote = notes[selectedNoteId] || notesList[0];
 
   if (!selectedNote) {
-    dispatch(addNote())
+    dispatch(addNote());
     return null;
   }
 
@@ -58,11 +58,10 @@ const App = () => {
         >
           <Editor
             value={selectedNote.text}
-            onChange={text =>
-              fetchUpdateNote(selectedNote.id, text).then(
-                () => dispatch(updateNote(selectedNote.id, text))
-              )
-            }
+            onChange={text => {
+              fetchUpdateNote(selectedNote.id, text);
+              dispatch(updateNote(selectedNote.id, text));
+            }}
           />
         </Box>
       </Box>
